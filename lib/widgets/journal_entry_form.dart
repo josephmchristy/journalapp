@@ -1,16 +1,18 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:journalapp/models/journal_entry.dart';
 
 class JournalEntryForm extends StatefulWidget {
 
-  JournalEntryForm({ Key? key }) : super(key: key);
+  const JournalEntryForm({ Key? key }) : super(key: key);
 
   @override
   State<JournalEntryForm> createState() => _JournalEntryFormState();
 }
 
 class _JournalEntryFormState extends State<JournalEntryForm> {
+  
   final formKey = GlobalKey<FormState>();
+  final journalEntryFields = JournalEntryFields();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
               ),
               onSaved: (value) {
                 //Store value in some object
+                journalEntryFields.title = value!;
               },
               validator: (value) {
                 if (value!.isEmpty) {
@@ -41,7 +44,8 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
             ElevatedButton(
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
+                  //formKey.currentState!.save();
+                   Navigator.pop(context);
                 }
               },
               child: const Text('Save Entry')
