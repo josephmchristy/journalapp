@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journalapp/screens/journal_entry_list.dart';
 import 'package:journalapp/screens/new_entry.dart';
+import 'package:journalapp/themes/light_theme.dart';
 
 class MyApp extends StatelessWidget {
 
@@ -16,9 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: CustomTheme.appTheme,
       routes: routes,
     );
   }

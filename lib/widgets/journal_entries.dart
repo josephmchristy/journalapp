@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class JournalEntriesScaffold extends StatelessWidget {
+class JournalEntries extends StatelessWidget {
 
-  JournalEntriesScaffold({ Key? key }) : super(key: key);
+  JournalEntries({ Key? key }) : super(key: key);
 
-   final items = List<Map>.generate(1000, (i) {
+   final items = List<Map>.generate(100, (i) {
     return {
       'title': 'Journal Entry $i',
       'subtitle': 'Subtitle text for $i',
