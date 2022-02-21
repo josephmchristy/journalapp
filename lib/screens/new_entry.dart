@@ -1,24 +1,21 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:journalapp/widgets/journal_app_scaffold.dart';
 import 'package:journalapp/widgets/journal_entry_form.dart';
-import 'package:journalapp/widgets/user_preferences.dart';
 
 class NewEntryScreen extends StatelessWidget {
 
   static const routeKey = 'journal_entries';
+  final void Function(bool) toggleTheme;
 
-  const NewEntryScreen({ Key? key }) : super(key: key);
+  const NewEntryScreen({ Key? key, required this.toggleTheme }) : super(key: key);
 
  
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Journal Entry Form'),
-      ),
-      drawer: const UserPreferencesDrawer(),
-      body: Column(
+    return JournalAppScaffold(
+      toggleTheme: toggleTheme,
+      bodyWidget: Column(
         children: [
           const JournalEntryForm(),
           CupertinoActionSheet(
