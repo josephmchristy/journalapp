@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:journalapp/screens/journal_entry.dart';
 import 'package:journalapp/screens/journal_entry_list.dart';
 import 'package:journalapp/screens/new_entry.dart';
 import 'package:journalapp/themes/custom_theme.dart';
 
-class MyApp extends StatefulWidget {
+class App extends StatefulWidget {
 
-  const MyApp({Key? key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
 
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<App> createState() => AppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class AppState extends State<App> {
   
-  var _isDarkTheme;
+  late bool isDarkTheme;
 
   @override
   void initState() {
     super.initState();
-    _isDarkTheme = false;
+    isDarkTheme = false;
   }
 
   void toggleTheme(bool toggle) {
     setState(() {
-      _isDarkTheme = toggle;
+      isDarkTheme = toggle;
     });
   }
   
@@ -34,12 +35,13 @@ class _MyAppState extends State<MyApp> {
 
     final routes = {
       '/': (context) => JournalEntryListScreen(toggleTheme: toggleTheme),
-      'newEntry': (context) => NewEntryScreen(toggleTheme: toggleTheme)
+      'newEntry': (context) => NewEntryScreen(toggleTheme: toggleTheme),
+      //'journalEntry': (context) => JournalEntryScreen(toggleTheme: toggleTheme)
     };
 
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: _isDarkTheme ? CustomTheme.darkTheme : CustomTheme.lightTheme,
+      theme: isDarkTheme ? CustomTheme.darkTheme : CustomTheme.lightTheme,
       routes: routes,
     );
   }

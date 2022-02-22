@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:journalapp/screens/new_entry.dart';
 import 'package:journalapp/widgets/journal_app_scaffold.dart';
 import 'package:journalapp/widgets/journal_entries.dart';
+import 'package:journalapp/widgets/user_preferences.dart';
 
 class JournalEntryListScreen extends StatelessWidget {
 
@@ -12,21 +13,24 @@ class JournalEntryListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return JournalAppScaffold(
-      toggleTheme: toggleTheme,
-      bodyWidget: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Journal App'),
+      ),
+      drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: (){
+          Navigator.push(
+            context, 
+            MaterialPageRoute(
+              builder: (context) => NewEntryScreen(toggleTheme: toggleTheme))
+          );
+        },
+      ),
+      body: Column(
         children: [
-           ElevatedButton(
-            onPressed: (){
-              Navigator.push(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => NewEntryScreen(toggleTheme: toggleTheme))
-              );
-            }, 
-            child: const Text('Add Journal Entry')
-          ),
-          JournalEntries(),
+          JournalEntries(toggleTheme: toggleTheme,),
         ],
       )
     );

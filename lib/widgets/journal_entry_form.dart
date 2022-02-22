@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:journalapp/models/journal_entry.dart';
 
 class JournalEntryForm extends StatefulWidget {
 
@@ -12,7 +11,7 @@ class JournalEntryForm extends StatefulWidget {
 class _JournalEntryFormState extends State<JournalEntryForm> {
   
   final formKey = GlobalKey<FormState>();
-  final journalEntryFields = JournalEntryFields();
+  //final journalEntryFields = JournalEntryField();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
               ),
               onSaved: (value) {
                 //Store value in some object
-                journalEntryFields.title = value!;
+                //journalEntryFields.title = value!;
               },
               validator: (value) {
                 if (value!.isEmpty) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journalapp/app.dart';
 
 class UserPreferencesDrawer extends StatefulWidget {
 
@@ -11,11 +12,16 @@ class UserPreferencesDrawer extends StatefulWidget {
 }
 
 class _UserPreferencesDrawerState extends State<UserPreferencesDrawer> {
-  bool _isDarkTheme = false;
-  Icon darkModeIcon = const Icon(Icons.dark_mode_outlined);
+  
 
   @override
   Widget build(BuildContext context) {
+
+    AppState? appState = context.findAncestorStateOfType<AppState>();
+
+    bool _isDarkTheme = appState!.isDarkTheme;
+    Icon darkModeIcon = const Icon(Icons.dark_mode);
+    if(!_isDarkTheme) darkModeIcon = const Icon(Icons.dark_mode_outlined);
 
     return Drawer(
       child: ListView(
