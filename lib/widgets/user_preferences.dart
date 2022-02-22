@@ -30,7 +30,7 @@ class _UserPreferencesDrawerState extends State<UserPreferencesDrawer> {
             child: Text('User Preferences')
           ),
           SwitchListTile(
-            title: const Text("Dark Theme"),
+            title: const Text("Dark Mode"),
             value: _isDarkTheme, 
             onChanged: (toggle) {
               _isDarkTheme = toggle;

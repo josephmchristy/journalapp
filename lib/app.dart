@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:journalapp/screens/journal_entry_list.dart';
 import 'package:journalapp/screens/new_entry.dart';
 import 'package:journalapp/themes/custom_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatefulWidget {
 
-  const App({Key? key}) : super(key: key);
+  final SharedPreferences preferences;
+
+  const App({Key? key, required this.preferences}) : super(key: key);
 
 
 
@@ -14,19 +17,16 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  
-  late bool isDarkTheme;
 
-  @override
-  void initState() {
-    super.initState();
-    isDarkTheme = false;
-  }
+  static const IS_DARK_THEME_KEY = 'isDarkTheme';
+
+  bool get isDarkTheme => widget.preferences.getBool(IS_DARK_THEME_KEY) ?? false;
 
   void toggleTheme(bool toggle) {
     setState(() {
-      isDarkTheme = toggle;
+      widget.preferences.setBool(IS_DARK_THEME_KEY, toggle);
     });
+    
   }
   
   @override
@@ -35,7 +35,6 @@ class AppState extends State<App> {
     final routes = {
       '/': (context) => JournalEntryListScreen(toggleTheme: toggleTheme),
       'newEntry': (context) => NewEntryScreen(toggleTheme: toggleTheme),
-      //'journalEntry': (context) => JournalEntryScreen(toggleTheme: toggleTheme)
     };
 
     return MaterialApp(
