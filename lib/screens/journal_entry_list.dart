@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:journalapp/screens/new_entry.dart';
-import 'package:journalapp/widgets/journal_app_scaffold.dart';
 import 'package:journalapp/widgets/journal_entries.dart';
 import 'package:journalapp/widgets/user_preferences.dart';
 

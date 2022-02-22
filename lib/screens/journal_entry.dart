@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journalapp/widgets/journal_entry.dart';
 import 'package:journalapp/widgets/user_preferences.dart';
 import 'package:journalapp/models/journal_entry_field.dart';
 
@@ -16,6 +17,7 @@ class JournalEntryScreen extends StatelessWidget {
         title: const Text('Journal App'),
       ),
       drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.keyboard_backspace),
         onPressed: () {
@@ -24,10 +26,7 @@ class JournalEntryScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text(journalEntryFields.title),
-          Text(journalEntryFields.body),
-          Text(journalEntryFields.rating.toString()),
-          Text(journalEntryFields.dateTime.toString())
+          JournalEntry(journalEntryFields: journalEntryFields),
         ],
       )
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:journalapp/screens/journal_entry.dart';
 import 'package:journalapp/screens/journal_entry_list.dart';
 import 'package:journalapp/screens/new_entry.dart';
 import 'package:journalapp/themes/custom_theme.dart';

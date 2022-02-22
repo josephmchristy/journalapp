@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:journalapp/widgets/journal_app_scaffold.dart';
 import 'package:journalapp/widgets/journal_entry_form.dart';
 import 'package:journalapp/widgets/user_preferences.dart';
 
