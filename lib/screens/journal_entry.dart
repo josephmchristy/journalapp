@@ -15,15 +15,21 @@ class JournalEntryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Journal App'),
+        leading: Builder(
+        builder: (context) => IconButton(
+          icon: (const Icon(Icons.keyboard_backspace)),
+          onPressed: () => Navigator.pop(context),
+          ),
+        ),
       ),
       drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.keyboard_backspace),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.keyboard_backspace),
+      //   onPressed: () {
+      //     Navigator.pop(context);
+      //   },
+      // ),
       body: Column(
         children: [
           JournalEntry(journalEntryFields: journalEntryFields),

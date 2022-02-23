@@ -15,6 +15,12 @@ class JournalEntryListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Journal App'),
+        leading: Builder(
+        builder: (context) => IconButton(
+          icon: (const Icon(Icons.settings)),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
       ),
       drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
       floatingActionButton: FloatingActionButton(
