@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:journalapp/models/journal_entry_field.dart';
+import 'package:journalapp/models/journal_entry_field_DTO.dart';
+import 'package:sqflite/sqflite.dart';
 
 class JournalEntryForm extends StatefulWidget {
 
@@ -13,13 +14,12 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
   
   final formKey = GlobalKey<FormState>();
   String dropdownValue = "1";
-  final journalEntryFields = JournalEntryField(
+  final journalEntryFields = JournalEntryFieldDTO(
     title: "",
     body: "",
     rating: "1",
     dateTime: DateTime.now()
   );
-  //final journalEntryFields = JournalEntryField();
 
   @override
   Widget build(BuildContext context) {
@@ -122,9 +122,18 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
 
   Widget saveButton(context) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
+
+          // var db = await openDatabase(
+          //   'journal.db', version: 1, onCreate: (Database db, int version) async {
+          //     await db.execute()
+          //   }
+          // );
+
+          // await db.close();
+
           Navigator.pop(context);
         }
       },

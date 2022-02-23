@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:journalapp/models/journal_entry_field.dart';
+import 'package:journalapp/models/journal_entry_field_DTO.dart';
 
 class JournalEntry extends StatelessWidget {
 
-  final JournalEntryField journalEntryFields;
+  final JournalEntryFieldDTO journalEntryFields;
 
   const JournalEntry({ Key? key,  required this.journalEntryFields}) : super(key: key);
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:journalapp/widgets/journal_entry.dart';
 import 'package:journalapp/widgets/user_preferences.dart';
-import 'package:journalapp/models/journal_entry_field.dart';
+import 'package:journalapp/models/journal_entry_field_DTO.dart';
 
 class JournalEntryScreen extends StatelessWidget {
   static const routeKey = 'journal_entry';
   final void Function(bool) toggleTheme;
-  final JournalEntryField journalEntryFields;
+  final JournalEntryFieldDTO journalEntryFields;
 
   const JournalEntryScreen({ Key? key, required this.toggleTheme, required this.journalEntryFields }) : super(key: key);
 
