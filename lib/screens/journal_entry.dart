@@ -23,13 +23,6 @@ class JournalEntryScreen extends StatelessWidget {
         ),
       ),
       drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Icon(Icons.keyboard_backspace),
-      //   onPressed: () {
-      //     Navigator.pop(context);
-      //   },
-      // ),
       body: Column(
         children: [
           JournalEntry(journalEntryFields: journalEntryFields),
