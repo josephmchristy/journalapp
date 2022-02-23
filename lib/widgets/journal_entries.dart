@@ -38,7 +38,7 @@ class JournalEntries extends StatelessWidget {
                       title: '${items[index]['title']}',
                       body: '${items[index]['body']}',
                       dateTime: DateTime.now(),
-                      rating: index
+                      rating: index.toString()
                     ),
                   )
                 )

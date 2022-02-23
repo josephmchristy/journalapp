@@ -3,7 +3,7 @@ class JournalEntryField {
   late String title;
   late String body;
   late DateTime dateTime;
-  late int rating;
+  late String rating;
 
   JournalEntryField({required this.title, required this.body, required this.dateTime, required this.rating});
   

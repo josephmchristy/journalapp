@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journalapp/models/journal_entry_field.dart';
 
 class JournalEntryForm extends StatefulWidget {
 
@@ -11,7 +12,13 @@ class JournalEntryForm extends StatefulWidget {
 class _JournalEntryFormState extends State<JournalEntryForm> {
   
   final formKey = GlobalKey<FormState>();
-  String dropdownValue = '1';
+  String dropdownValue = "1";
+  final journalEntryFields = JournalEntryField(
+    title: "",
+    body: "",
+    rating: "1",
+    dateTime: DateTime.now()
+  );
   //final journalEntryFields = JournalEntryField();
 
   @override
@@ -44,8 +51,8 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           border: OutlineInputBorder()
         ),
         onSaved: (value) {
-          //Store value in some object
-          //journalEntryFields.title = value!;
+          journalEntryFields.title = value as String;
+          journalEntryFields.dateTime = DateTime.now();
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -65,8 +72,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           border: OutlineInputBorder()
         ),
         onSaved: (value) {
-          //Store value in some object
-          //journalEntryFields.title = value!;
+          journalEntryFields.body = value as String;
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -86,17 +92,20 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           labelText: 'Rating',
           border: OutlineInputBorder()
       ),
-      items: <String>['1', '2', '3', '4']
+      items: <String>['1', '2', '3', '4', '5']
       .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value)
         );
       }).toList(), 
-      onChanged: (String? value) {
+      onChanged: (value) {
         setState((){
-          dropdownValue = value!;
+          dropdownValue = value as String;
         });
+      },
+      onSaved: (value) {
+        journalEntryFields.rating = value as String;
       },
     );
   }
@@ -116,7 +125,6 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
       onPressed: () {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
-          print('Save pressed!');
           Navigator.pop(context);
         }
       },
