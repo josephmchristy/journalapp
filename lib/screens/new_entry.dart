@@ -6,8 +6,9 @@ class NewEntryScreen extends StatelessWidget {
 
   static const routeKey = 'new_entry';
   final void Function(bool) toggleTheme;
+  final void Function() loadJournal;
 
-  const NewEntryScreen({ Key? key, required this.toggleTheme }) : super(key: key);
+  const NewEntryScreen({ Key? key, required this.toggleTheme, required this.loadJournal }) : super(key: key);
 
  
 
@@ -25,8 +26,8 @@ class NewEntryScreen extends StatelessWidget {
       ),
       drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
       body: Column(
-        children: const [
-          JournalEntryForm(),
+        children: [
+          JournalEntryForm(loadJournal: loadJournal,),
         ])
     );
   }

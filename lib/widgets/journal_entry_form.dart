@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:journalapp/models/journal_entry_field_DTO.dart';
+import 'package:journalapp/screens/journal_entry_list.dart';
 import 'package:sqflite/sqflite.dart';
+
+const DB_KEY_PATH = 'assets/schema_1.sql.txt';
 
 class JournalEntryForm extends StatefulWidget {
 
-  const JournalEntryForm({ Key? key }) : super(key: key);
+  final void Function() loadJournal;
+
+  const JournalEntryForm({ Key? key, required this.loadJournal }) : super(key: key);
 
   @override
   State<JournalEntryForm> createState() => _JournalEntryFormState();
@@ -13,12 +19,12 @@ class JournalEntryForm extends StatefulWidget {
 class _JournalEntryFormState extends State<JournalEntryForm> {
   
   final formKey = GlobalKey<FormState>();
-  String dropdownValue = "1";
+  int dropdownValue = 1;
   final journalEntryFields = JournalEntryFieldDTO(
     title: "",
     body: "",
-    rating: "1",
-    dateTime: DateTime.now()
+    rating: 1,
+    dateTime: DateTime.now().toString()
   );
 
   @override
@@ -36,7 +42,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
             const SizedBox(height: 10),
             ratingDropDown(context),
             const SizedBox(height: 10),
-            saveCancelButtons(context),
+            saveCancelButtons(context, widget.loadJournal),
           ],
         ),
       )
@@ -52,7 +58,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
         ),
         onSaved: (value) {
           journalEntryFields.title = value as String;
-          journalEntryFields.dateTime = DateTime.now();
+          journalEntryFields.dateTime = DateTime.now().toString();
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -92,49 +98,55 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           labelText: 'Rating',
           border: OutlineInputBorder()
       ),
-      items: <String>['1', '2', '3', '4', '5']
-      .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
+      items: <int>[1, 2, 3, 4, 5]
+      .map<DropdownMenuItem<int>>((int value) {
+        return DropdownMenuItem<int>(
           value: value,
-          child: Text(value)
+          child: Text(value.toString())
         );
       }).toList(), 
       onChanged: (value) {
         setState((){
-          dropdownValue = value as String;
+          dropdownValue = value as int;
         });
       },
       onSaved: (value) {
-        journalEntryFields.rating = value as String;
+        journalEntryFields.rating = value as int;
       },
     );
   }
 
-  Widget saveCancelButtons(context) {
+  Widget saveCancelButtons(context, loadJournal) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        saveButton(context),
+        saveButton(context, loadJournal),
         cancelButton(context)
       ],
     );
   }
 
-  Widget saveButton(context) {
+  Widget saveButton(context, loadJournal) {
     return ElevatedButton(
       onPressed: () async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
 
-          // var db = await openDatabase(
-          //   'journal.db', version: 1, onCreate: (Database db, int version) async {
-          //     await db.execute()
-          //   }
-          // );
+          var db = await openDatabase(
+            'journal.sqlite3.db', 
+            version: 1, 
+            onCreate: (Database db, int version) async {
+              await db.execute(await rootBundle.loadString(DB_KEY_PATH));
+            }
+          );
 
-          // await db.close();
+          await db.transaction((txn) async {
+            await txn.rawInsert('INSERT INTO journal_entries(title, body, rating, date) VALUES(?, ?, ?, ?)',
+              [journalEntryFields.title, journalEntryFields.body, journalEntryFields.rating, journalEntryFields.dateTime]
+            );
+          });
 
-          Navigator.pop(context);
+          Navigator.restorablePopAndPushNamed(context, '/');
         }
       },
       child: const Text('Save Entry')

@@ -2,10 +2,10 @@ class JournalEntryFieldDTO {
   
   late String title;
   late String body;
-  late DateTime dateTime;
-  late String rating;
+  late String dateTime;
+  late int rating;
 
-  JournalEntryFieldDTO({required this.title, required this.body, required this.dateTime, required this.rating});
+  JournalEntryFieldDTO({required this.title, required this.body, required this.rating, required this.dateTime});
   
   @override
   String toString() {
