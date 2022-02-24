@@ -17,14 +17,16 @@ class NewEntryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Journal App'),
-        leading: Builder(
-        builder: (context) => IconButton(
-          icon: (const Icon(Icons.settings)),
-          onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
+        actions:[
+          Builder(builder: (context) => IconButton(
+            icon: (const Icon(Icons.settings)),
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+            )
+          )
+        ],
+        leading: Container(),
       ),
-      drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
+      endDrawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
       body: Column(
         children: [
           JournalEntryForm(loadJournal: loadJournal,),

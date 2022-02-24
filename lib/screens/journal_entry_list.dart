@@ -59,14 +59,16 @@ class JournalEntryListScreenState extends State<JournalEntryListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: journalEntries.isEmpty ? const Text('Welcome') : const Text('Journal App'),
-        leading: Builder(
-        builder: (context) => IconButton(
-          icon: (const Icon(Icons.settings)),
-          onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
+        actions:[
+          Builder(builder: (context) => IconButton(
+            icon: (const Icon(Icons.settings)),
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+            )
+          )
+        ],
+        leading: Container(),
       ),
-      drawer: UserPreferencesDrawer(toggleTheme: widget.toggleTheme),
+      endDrawer: UserPreferencesDrawer(toggleTheme: widget.toggleTheme),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: (){

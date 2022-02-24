@@ -15,14 +15,21 @@ class JournalEntryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Journal App'),
+        actions:[
+          Builder(builder: (context) => IconButton(
+            icon: (const Icon(Icons.settings)),
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+            )
+          )
+        ],
         leading: Builder(
-        builder: (context) => IconButton(
-          icon: (const Icon(Icons.keyboard_backspace)),
-          onPressed: () => Navigator.pop(context),
+          builder: (context) => IconButton(
+            icon: (const Icon(Icons.keyboard_backspace)),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
       ),
-      drawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
+      endDrawer: UserPreferencesDrawer(toggleTheme: toggleTheme),
       body: Column(
         children: [
           JournalEntry(journalEntryFields: journalEntryFields),
