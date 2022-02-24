@@ -1,6 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:journalapp/models/journal_entry_field_dto.dart';
 import 'package:journalapp/screens/journal_entry.dart';
-import 'package:journalapp/models/journal_entry_field_DTO.dart';
 
 
 class JournalEntries extends StatelessWidget {

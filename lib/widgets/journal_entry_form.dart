@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:journalapp/models/journal_entry_field_DTO.dart';
-import 'package:journalapp/screens/journal_entry_list.dart';
-import 'package:sqflite/sqflite.dart';
-
-const DB_KEY_PATH = 'assets/schema_1.sql.txt';
+import 'package:journalapp/db/database_manager.dart';
+import 'package:journalapp/models/journal_entry_field_dto.dart';
 
 class JournalEntryForm extends StatefulWidget {
 
@@ -131,20 +127,21 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
       onPressed: () async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
+          final databaseManager = DatabaseManager.getInstance();
+          databaseManager.saveJournalEntry(journalEntryFields);
+          // var db = await openDatabase(
+          //   'journal.sqlite3.db', 
+          //   version: 1, 
+          //   onCreate: (Database db, int version) async {
+          //     await db.execute(await rootBundle.loadString(DB_KEY_PATH));
+          //   }
+          // );
 
-          var db = await openDatabase(
-            'journal.sqlite3.db', 
-            version: 1, 
-            onCreate: (Database db, int version) async {
-              await db.execute(await rootBundle.loadString(DB_KEY_PATH));
-            }
-          );
-
-          await db.transaction((txn) async {
-            await txn.rawInsert('INSERT INTO journal_entries(title, body, rating, date) VALUES(?, ?, ?, ?)',
-              [journalEntryFields.title, journalEntryFields.body, journalEntryFields.rating, journalEntryFields.dateTime]
-            );
-          });
+          // await databaseManager.db.transaction((txn) async {
+          //   await txn.rawInsert('INSERT INTO journal_entries(title, body, rating, date) VALUES(?, ?, ?, ?)',
+          //     [journalEntryFields.title, journalEntryFields.body, journalEntryFields.rating, journalEntryFields.dateTime]
+          //   );
+          // });
 
           Navigator.restorablePopAndPushNamed(context, '/');
         }

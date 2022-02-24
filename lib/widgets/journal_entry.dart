@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:journalapp/models/journal_entry_field_DTO.dart';
+import 'package:journalapp/models/journal_entry_field_dto.dart';
 
 class JournalEntry extends StatelessWidget {
 

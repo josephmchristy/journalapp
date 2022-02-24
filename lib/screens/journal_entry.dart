@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:journalapp/models/journal_entry_field_dto.dart';
 import 'package:journalapp/widgets/journal_entry.dart';
 import 'package:journalapp/widgets/user_preferences.dart';
-import 'package:journalapp/models/journal_entry_field_DTO.dart';
 
 class JournalEntryScreen extends StatelessWidget {
   static const routeKey = 'journal_entry';
