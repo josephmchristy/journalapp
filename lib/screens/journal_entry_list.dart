@@ -5,6 +5,8 @@ import 'package:journalapp/db/database_manager.dart';
 import 'package:journalapp/models/journal_entry_field_dto.dart';
 import 'package:journalapp/screens/new_entry.dart';
 import 'package:journalapp/widgets/journal_entries.dart';
+import 'package:journalapp/widgets/journal_entries_horizontal.dart';
+import 'package:journalapp/widgets/journal_entry.dart';
 import 'package:journalapp/widgets/user_preferences.dart';
 
 
@@ -12,6 +14,7 @@ class JournalEntryListScreen extends StatefulWidget {
 
   static const routeKey = 'journal_entries';
   final void Function(bool) toggleTheme;
+
   
 
   const JournalEntryListScreen({ Key? key, required this.toggleTheme  }) : super(key: key);
@@ -23,6 +26,7 @@ class JournalEntryListScreen extends StatefulWidget {
 class JournalEntryListScreenState extends State<JournalEntryListScreen> {
 
   late List<JournalEntryFieldDTO> journalEntries = [];
+  late int journalSelected = 0;
 
   @override
   void initState() {
@@ -33,29 +37,22 @@ class JournalEntryListScreenState extends State<JournalEntryListScreen> {
   void loadJournal() async {
     final databaseManager = DatabaseManager.getInstance();
     journalEntries = await databaseManager.journalEntries();
-    // var db = await openDatabase(
-    //   'journal.sqlite3.db', 
-    //   version: 1, 
-    //   onCreate: (Database db, int version) async {
-    //     await db.execute(await rootBundle.loadString(DB_KEY_PATH));
-    //   }
-    // );
-    // List<Map> journalRecords = await databaseManager.db.rawQuery("SELECT * FROM journal_entries");
-    // journalEntries = journalRecords.map((record) {
-    //     return JournalEntryFieldDto(
-    //       title: record['title'], 
-    //       body: record['body'], 
-    //       rating: record['rating'], 
-    //       dateTime: record['date']);
-    //   }).toList();
     
     setState((){
       journalEntries = journalEntries;
     });
   }
+
+  void selectJournal(int journalSelectedTap) {
+    setState(() {
+      journalEntries = journalEntries;
+      journalSelected = journalSelectedTap;
+    });
+  }
   
   @override
   Widget build(BuildContext context) {
+    print("Journal selected $journalSelected");
     return Scaffold(
       appBar: AppBar(
         title: journalEntries.isEmpty ? const Text('Welcome') : const Text('Journal App'),
@@ -79,11 +76,43 @@ class JournalEntryListScreenState extends State<JournalEntryListScreen> {
           );
         },
       ),
-      body: journalEntries.isEmpty ? const Text('Welcome') : Column(
+      body: LayoutBuilder(builder: (context, constraints) {
+        return constraints.maxWidth < 500 ? verticalLayout(context, widget.toggleTheme, journalEntries) : horizontalLayout(context, widget.toggleTheme, journalEntries);
+      },)
+    );
+  }
+
+  Widget verticalLayout(BuildContext context, toggleTheme, journalEntries) {
+    return journalEntries.isEmpty ? const Text('Welcome') : 
+    Column(
         children: [
-          JournalEntries(toggleTheme: widget.toggleTheme, journalEntries: journalEntries),
+          JournalEntries(toggleTheme: toggleTheme, journalEntries: journalEntries),
         ],
-      )
+    );
+  }
+
+  Widget horizontalLayout(BuildContext context, toggleTheme, journalEntries){
+    return journalEntries.isEmpty ? const Text('Welcome') : 
+    Row( 
+      children: [
+        Flexible(
+          child: Column(
+            children: [
+              JournalEntriesHorizontal(toggleTheme: toggleTheme, journalEntries: journalEntries)
+            ],
+          ),
+        ),
+        // Column(children: [const Text("asdf")],),
+        Flexible(
+          child: Column(
+            children: [
+              JournalEntry(
+                journalEntryFields: journalEntries[journalSelected],
+              )
+            ],
+          ),
+        ),
+      ]
     );
   }
 }

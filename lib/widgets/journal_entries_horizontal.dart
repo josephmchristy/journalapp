@@ -2,20 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:journalapp/models/journal_entry_field_dto.dart';
-import 'package:journalapp/screens/journal_entry.dart';
+import 'package:journalapp/screens/journal_entry_list.dart';
 
 
-class JournalEntries extends StatelessWidget {
+class JournalEntriesHorizontal extends StatelessWidget {
 
   final void Function(bool) toggleTheme;
   late List<JournalEntryFieldDTO> journalEntries = []; 
 
 
-  JournalEntries({ Key? key, required this.toggleTheme, required this.journalEntries }) : super(key: key);
+  JournalEntriesHorizontal({ Key? key, required this.toggleTheme, required this.journalEntries }) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
+
+    JournalEntryListScreenState? appState = context.findAncestorStateOfType<JournalEntryListScreenState>();
+
     return Expanded(
       child: ListView.builder(
         shrinkWrap: true,
@@ -28,15 +31,7 @@ class JournalEntries extends StatelessWidget {
             title: Text('Journal Entry ${journalEntries[index].title}'),
             subtitle: Text('Example ${journalEntries[index].body}'),
             onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => JournalEntryScreen(
-                    toggleTheme: toggleTheme,
-                    journalEntryFields: journalEntries[index]
-                  )
-                )
-              );
+              appState!.selectJournal(index);
             }
           );
       }),

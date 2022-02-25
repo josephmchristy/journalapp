@@ -8,7 +8,7 @@ class JournalEntryScreen extends StatelessWidget {
   final void Function(bool) toggleTheme;
   final JournalEntryFieldDTO journalEntryFields;
 
-  const JournalEntryScreen({ Key? key, required this.toggleTheme, required this.journalEntryFields }) : super(key: key);
+  const JournalEntryScreen({ Key? key, required this.toggleTheme, required this.journalEntryFields}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class JournalEntryScreen extends StatelessWidget {
         leading: Builder(
           builder: (context) => IconButton(
             icon: (const Icon(Icons.keyboard_backspace)),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.restorablePopAndPushNamed(context, '/'),
           ),
         ),
       ),
