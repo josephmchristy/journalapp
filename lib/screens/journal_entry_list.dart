@@ -8,6 +8,7 @@ import 'package:journalapp/widgets/journal_entries.dart';
 import 'package:journalapp/widgets/journal_entries_horizontal.dart';
 import 'package:journalapp/widgets/journal_entry.dart';
 import 'package:journalapp/widgets/user_preferences.dart';
+import 'package:journalapp/widgets/welcome_screen_widget.dart';
 
 
 class JournalEntryListScreen extends StatefulWidget {
@@ -52,7 +53,6 @@ class JournalEntryListScreenState extends State<JournalEntryListScreen> {
   
   @override
   Widget build(BuildContext context) {
-    print("Journal selected $journalSelected");
     return Scaffold(
       appBar: AppBar(
         title: journalEntries.isEmpty ? const Text('Welcome') : const Text('Journal App'),
@@ -83,7 +83,7 @@ class JournalEntryListScreenState extends State<JournalEntryListScreen> {
   }
 
   Widget verticalLayout(BuildContext context, toggleTheme, journalEntries) {
-    return journalEntries.isEmpty ? const Text('Welcome') : 
+    return journalEntries.isEmpty ? const WelcomeScreenWidget() : 
     Column(
         children: [
           JournalEntries(toggleTheme: toggleTheme, journalEntries: journalEntries),
@@ -92,7 +92,7 @@ class JournalEntryListScreenState extends State<JournalEntryListScreen> {
   }
 
   Widget horizontalLayout(BuildContext context, toggleTheme, journalEntries){
-    return journalEntries.isEmpty ? const Text('Welcome') : 
+    return journalEntries.isEmpty ? const WelcomeScreenWidget() : 
     Row( 
       children: [
         Flexible(
@@ -102,7 +102,6 @@ class JournalEntryListScreenState extends State<JournalEntryListScreen> {
             ],
           ),
         ),
-        // Column(children: [const Text("asdf")],),
         Flexible(
           child: Column(
             children: [

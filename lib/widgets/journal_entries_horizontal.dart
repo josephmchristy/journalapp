@@ -26,12 +26,14 @@ class JournalEntriesHorizontal extends StatelessWidget {
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index){
           return ListTile(
-            leading: const FlutterLogo(),
-            trailing: const Icon(Icons.more_horiz),
+            leading: IconTheme(
+              data: const IconThemeData(color: Colors.white),
+              child: appState!.journalSelected == index ? const Icon(Icons.markunread_rounded) : const Icon(Icons.markunread_outlined)
+            ), 
             title: Text('Journal Entry ${journalEntries[index].title}'),
             subtitle: Text('Example ${journalEntries[index].body}'),
             onTap: () {
-              appState!.selectJournal(index);
+              appState.selectJournal(index);
             }
           );
       }),

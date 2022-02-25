@@ -54,7 +54,9 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
         ),
         onSaved: (value) {
           journalEntryFields.title = value as String;
-          journalEntryFields.dateTime = DateTime.now().toString();
+          DateTime now = DateTime.now();
+          String convertedDateTime = "${now.year.toString()}-${now.month.toString().padLeft(2,'0')}-${now.day.toString().padLeft(2,'0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
+          journalEntryFields.dateTime = convertedDateTime;
         },
         validator: (value) {
           if (value!.isEmpty) {
@@ -129,20 +131,6 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
           formKey.currentState!.save();
           final databaseManager = DatabaseManager.getInstance();
           databaseManager.saveJournalEntry(journalEntryFields);
-          // var db = await openDatabase(
-          //   'journal.sqlite3.db', 
-          //   version: 1, 
-          //   onCreate: (Database db, int version) async {
-          //     await db.execute(await rootBundle.loadString(DB_KEY_PATH));
-          //   }
-          // );
-
-          // await databaseManager.db.transaction((txn) async {
-          //   await txn.rawInsert('INSERT INTO journal_entries(title, body, rating, date) VALUES(?, ?, ?, ?)',
-          //     [journalEntryFields.title, journalEntryFields.body, journalEntryFields.rating, journalEntryFields.dateTime]
-          //   );
-          // });
-
           Navigator.restorablePopAndPushNamed(context, '/');
         }
       },

@@ -24,26 +24,29 @@ class _UserPreferencesDrawerState extends State<UserPreferencesDrawer> {
     if(!_isDarkTheme) darkModeIcon = const Icon(Icons.dark_mode_outlined);
 
     return Drawer(
-      child: ListView(
-        children: [
-          const DrawerHeader(
-            child: Text('User Preferences')
-          ),
-          SwitchListTile(
-            title: const Text("Dark Mode"),
-            value: _isDarkTheme, 
-            onChanged: (toggle) {
-              _isDarkTheme = toggle;
-              if(_isDarkTheme) {
-                darkModeIcon = const Icon(Icons.dark_mode);
-              } else {
-                darkModeIcon = const Icon(Icons.dark_mode_outlined);
-              }
-              widget.toggleTheme(_isDarkTheme);
-            },
-            secondary: darkModeIcon,
-          )
-        ],
+      child: Container(
+        color: Colors.grey,
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              child: Text('User Preferences')
+            ),
+            SwitchListTile(
+              title: const Text("Dark Mode"),
+              value: _isDarkTheme, 
+              onChanged: (toggle) {
+                _isDarkTheme = toggle;
+                if(_isDarkTheme) {
+                  darkModeIcon = const Icon(Icons.dark_mode);
+                } else {
+                  darkModeIcon = const Icon(Icons.dark_mode_outlined);
+                }
+                widget.toggleTheme(_isDarkTheme);
+              },
+              secondary: darkModeIcon,
+            )
+          ],
+        ),
       )
     );
   }

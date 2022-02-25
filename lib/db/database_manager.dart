@@ -23,6 +23,7 @@ class DatabaseManager {
   }
 
   static Future initialize() async {
+    await deleteDatabase(DATABASE_FILENAME);
     final db = await openDatabase(DATABASE_FILENAME,
       version: 1,
       onCreate: (Database db, int version) async {

@@ -23,8 +23,10 @@ class JournalEntries extends StatelessWidget {
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index){
           return ListTile(
-            leading: const FlutterLogo(),
-            trailing: const Icon(Icons.more_horiz),
+            leading: const IconTheme(
+              data: IconThemeData(color: Colors.white),
+              child: Icon(Icons.markunread_outlined)
+            ),
             title: Text('Journal Entry ${journalEntries[index].title}'),
             subtitle: Text('Example ${journalEntries[index].body}'),
             onTap: () {
