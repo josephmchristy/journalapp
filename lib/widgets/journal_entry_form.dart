@@ -90,6 +90,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
 
   Widget ratingDropDown(context) {
     return DropdownButtonFormField (
+      style: const TextStyle(color: Colors.black),
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
       decoration: const InputDecoration(

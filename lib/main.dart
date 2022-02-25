@@ -9,7 +9,6 @@ import 'app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //final String dbKey = await rootBundle.loadString(DB_KEY_PATH);
   await DatabaseManager.initialize();
   runApp(App(preferences: await SharedPreferences.getInstance()));
 }
